@@ -6,17 +6,15 @@
 (defn consecLargestProduct 
   [adjdig largeint]
   (let [intstring (str largeint) largestprod 0]
-    (if (and (not (< intstring adjdig)) (seq intstring))
+    (if (and (not (< (count intstring) adjdig)) (seq intstring))
       (consecLargestProduct adjdig (rest largeint))
-      (reduce * (map read-string (map str (take adjdig intstring))))))
+      (reduce * (map read-string (map str (take adjdig intstring)))))))
 
+(comment 
+  (map str (take 4 "12525352"))                                 ;; => ("1" "2" "5" "2")
+  (read-string (apply str (take 3 "513525236")))                ;; => 513
+  ;; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  (reduce * (map read-string (map str (take 3 "5553213"))))     ;; => 125 !!
+  ;; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-  ;; Relevant function snippets:
-  (apply str (interpose " " (apply str (take 3 "2593128649"))))) ;; => "2 5 9"
-(map str (take 4 "12525352"))                                 ;; => ("1" "2" "5" "2")
-(read-string (apply str (take 3 "513525236")))                ;; => 513
-;; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-(reduce * (map read-string (map str (take 3 "5553213"))))     ;; => 125 !!
-;; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-(consecLargestProduct intlist)
+  (consecLargestProduct intlist))
